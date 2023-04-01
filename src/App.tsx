@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { Button, ListGroup, Dropdown, DropdownButton } from 'react-bootstrap';
+import { Button, Dropdown, DropdownButton } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import AttributeList from './components/AttributeList';
 import BornSituationList from './components/BornLifepathList';
@@ -35,10 +35,8 @@ const generateSetting = (): string => {
   const roll = Math.random();
   if (roll < 0.6) {
     return 'Rural';
-  } else if (roll < 1) {
-    return 'Urban';
   } else {
-    return 'Wild';
+    return 'Urban';
   }
 };
 
@@ -206,7 +204,6 @@ const App: React.FC = () => {
           >
             <Dropdown.Item eventKey="Rural">Rural</Dropdown.Item>
             <Dropdown.Item eventKey="Urban">Urban</Dropdown.Item>
-            <Dropdown.Item eventKey="Wild">Wild</Dropdown.Item>
           </DropdownButton>
           <Button className="ml-2" onClick={handleGenerateSetting}>
             Generate Setting<div ref={settingRef}></div>
