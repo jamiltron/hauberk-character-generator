@@ -1,8 +1,11 @@
-import React, { useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Button, ListGroup, Dropdown, DropdownButton } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import AttributeList from './components/AttributeList';
+import BornSituationList from './components/BornLifepathList';
+import FamilySituationList from './components/FamilySituationList';
 
-interface Attribute {
+export interface Attribute {
   name: string;
   value: number;
 }
@@ -20,6 +23,7 @@ const generateAttributes = (): Attribute[] => {
     { name: 'STR', value: rollDice(3, 6) },
     { name: 'DEX', value: rollDice(3, 6) },
     { name: 'CON', value: rollDice(3, 6) },
+    { name: 'CHA', value: rollDice(3, 6) },
     { name: 'POW', value: rollDice(3, 6) },
     { name: 'SOC', value: rollDice(3, 6) },
     { name: 'INT', value: rollDice(2, 6) + 6 },
@@ -31,7 +35,7 @@ const generateSetting = (): string => {
   const roll = Math.random();
   if (roll < 0.6) {
     return 'Rural';
-  } else if (roll < 0.9) {
+  } else if (roll < 1) {
     return 'Urban';
   } else {
     return 'Wild';
@@ -48,7 +52,7 @@ const generateSiblingRank = (): number => {
   return 6;
 };
 
-interface FamilySituation {
+export interface FamilySituation {
   siblingRank: number;
   familySize: number;
   parentalSituation: string;
@@ -107,6 +111,29 @@ const generateParentalSituation = (SOC: number): string => {
   return situation;
 };
 
+export interface BornLifepath {
+  lifepath: string;
+}
+
+const generateBornSituation = (
+  SOC: number,
+  setting: string,
+  parentalSituation: string
+): BornLifepath => {
+  const isReligiousOrMagic =
+    parentalSituation.includes('religious institution') || parentalSituation.includes('magic-user');
+
+  let lifepath = '';
+
+  if (SOC >= 6 && SOC <= 15 && setting === 'Rural' && !isReligiousOrMagic) {
+    lifepath = 'Born Villager';
+  }
+
+  // Add more conditions for other lifepaths based on the rules.
+
+  return { lifepath };
+};
+
 
 const App: React.FC = () => {
   const [attributes, setAttributes] = useState<Attribute[]>([]);
@@ -116,7 +143,35 @@ const App: React.FC = () => {
     familySize: 0,
     parentalSituation: '',
   });
+  const [bornSituation, setBornSituation] = useState<BornLifepath>({ lifepath: '' });
 
+  const attributesRef = useRef<HTMLHeadingElement | null>(null);
+  useEffect(() => {
+    if (attributes && attributesRef.current) {
+      attributesRef.current.scrollIntoView({ behavior: 'smooth' });
+    }
+  }, [attributes]);
+
+  const settingRef = useRef<HTMLHeadingElement | null>(null);
+  useEffect(() => {
+    if (setting && settingRef.current) {
+      settingRef.current.scrollIntoView({ behavior: 'smooth' });
+    }
+  }, [setting]);
+
+  const familySituationRef = useRef<HTMLHeadingElement | null>(null);
+  useEffect(() => {
+    if (familySituation.siblingRank > 0 && familySituationRef.current) {
+      familySituationRef.current.scrollIntoView({ behavior: 'smooth' });
+    }
+  }, [familySituation.siblingRank]);
+
+  const lifepathRef = useRef<HTMLHeadingElement | null>(null);
+  useEffect(() => {
+    if (bornSituation.lifepath && lifepathRef.current) {
+      lifepathRef.current.scrollIntoView({ behavior: 'smooth' });
+    }
+  }, [bornSituation.lifepath]);
 
   const handleGenerateAttributes = () => {
     setAttributes(generateAttributes());
@@ -131,17 +186,16 @@ const App: React.FC = () => {
     setFamilySituation(generateFamilySituation(SOC));
   };
 
+  const handleGenerateBornSituation = () => {
+    const SOC = attributes.find((attr) => attr.name === 'SOC')?.value || 0;
+    setBornSituation(generateBornSituation(SOC, setting, familySituation.parentalSituation));
+  };
+
   return (
     <div className="App">
-      <h1>Hauberk Character Generator</h1>
+      <h1>Hauberk! Character Generator</h1>
       <Button onClick={handleGenerateAttributes}>Generate Attributes</Button>
-      <ListGroup>
-        {attributes.map((attr) => (
-          <ListGroup.Item key={attr.name}>
-            {attr.name}: {attr.value}
-          </ListGroup.Item>
-        ))}
-      </ListGroup>
+      <AttributeList attributes={attributes} />
       {attributes.length > 0 && (
         <>
           <h2>Setting</h2>
@@ -155,32 +209,29 @@ const App: React.FC = () => {
             <Dropdown.Item eventKey="Wild">Wild</Dropdown.Item>
           </DropdownButton>
           <Button className="ml-2" onClick={handleGenerateSetting}>
-            Generate Setting
+            Generate Setting<div ref={settingRef}></div>
           </Button>
           {setting !== '' && setting !== null && (
             <>
-          <h2>Family Situation</h2>
-          <Button onClick={handleGenerateFamilySituation}>
-            Generate Family Situation
-          </Button>
-          {familySituation.siblingRank > 0 && (
-            <ListGroup>
-              <ListGroup.Item>
-                <b>Sibling Rank:</b> {familySituation.siblingRank}
-              </ListGroup.Item>
-              <ListGroup.Item>
-                <b>Family Size:</b> {familySituation.familySize}
-              </ListGroup.Item>
-              <ListGroup.Item>
-                <b>Parental Situation:</b> {familySituation.parentalSituation}
-              </ListGroup.Item>
-            </ListGroup>
+              <h2 ref={familySituationRef}>Family Situation</h2>
+              <Button onClick={handleGenerateFamilySituation}>
+                Generate Family Situation
+              </Button>
+              {familySituation.siblingRank > 0 && (
+                <FamilySituationList familySituation={familySituation} />
+              )}
+            </>
           )}
-          </>
-        )}
+          {familySituation.parentalSituation && (
+            <>
+              <h2 ref={lifepathRef}>Born Situation</h2>
+              <Button onClick={handleGenerateBornSituation}>Generate Born Situation</Button>
+              {bornSituation.lifepath && <BornSituationList bornSituation={bornSituation} />}
+            </>
+          )}
         </>
-    )}
-  </div>
+      )}
+    </div>
   );
 };
 
