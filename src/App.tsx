@@ -6,7 +6,14 @@ import BornSituationList from './components/BornLifepathList';
 import FamilySituationList from './components/FamilySituationList';
 import careerProbabilities from '../src/assets/career_probabilities.json'
 
-export type Setting = 'Rural' | 'Urban';
+export type Setting = '' | 'Rural' | 'Urban' | 'Religious' | 'Arcane';
+
+export interface Character {
+  attributes: Attribute[];
+  setting: Setting;
+  familySituation: FamilySituation;
+  bornSituation: BornLifepath;
+}
 
 export interface Attribute {
   name: string;
@@ -22,23 +29,6 @@ export interface FamilySituation {
 export interface BornLifepath {
   lifepath: string;
   guardianCareer: string;
-}
-
-interface CareerGroup {
-  name: string;
-  setting: Setting;
-  soc_range: SOC_Range;
-  careers: ProbabilityEntry[];
-}
-
-interface ProbabilityEntry {
-  name: string;
-  probability: number;
-}
-
-interface SOC_Range {
-  min: number;
-  max: number;
 }
 
 const rollDice = (numDice: number, numSides: number): number => {
@@ -62,7 +52,7 @@ const generateAttributes = (): Attribute[] => {
   ];
 };
 
-const generateSetting = (): string => {
+const generateSetting = (): Setting => {
   const roll = Math.random();
   if (roll < 0.6) {
     return 'Rural';
@@ -211,6 +201,21 @@ const generateCareer = (setting: string, SOC: number): string => {
   return '';
 };
 
+const stringToSetting = (str?: string): Setting => {
+  if (str === 'Rural') {
+    return 'Rural';
+  } else if (str === 'Urban') {
+    return 'Urban';
+  } else if (str === 'Religious') {
+    return 'Religious';
+  } else if (str === 'Arcane') {
+    return 'Arcane';
+  }
+  else {
+    return '';
+  }
+}
+
 const generateBornSituation = (
   SOC: number,
   setting: string,
@@ -233,6 +238,8 @@ const generateBornSituation = (
     lifepath = 'Born Wanderer';
   } else if (SOC >= 6 && SOC <= 15 && setting === 'Rural' && !isReligiousOrMagic) {
     lifepath = 'Born Villager';
+  } else if (SOC >= 16 && setting === 'Rural' && !isReligiousOrMagic) {
+    lifepath = 'Born Noble';
   } else if (setting === 'Urban') {
     lifepath = 'Born Townsfolk';
   }
@@ -244,96 +251,108 @@ const generateBornSituation = (
 };
 
 const App: React.FC = () => {
-  const [attributes, setAttributes] = useState<Attribute[]>([]);
-  const [setting, setSetting] = useState<string>('');
-  const [familySituation, setFamilySituation] = useState<FamilySituation>({
-    siblingRank: 0,
-    familySize: 0,
-    parentalSituation: '',
+  const [character, setCharacter] = useState<Character>({
+    attributes: [],
+    setting: '',
+    familySituation: {
+      siblingRank: 0,
+      familySize: 0,
+      parentalSituation: '',
+    },
+    bornSituation: { lifepath: '', guardianCareer: '' },
   });
-  const [bornSituation, setBornSituation] = useState<BornLifepath>({ lifepath: '', guardianCareer: '' });
 
   const attributesRef = useRef<HTMLHeadingElement | null>(null);
   useEffect(() => {
-    if (attributes && attributesRef.current) {
+    if (character.attributes && attributesRef.current) {
       attributesRef.current.scrollIntoView({ behavior: 'smooth' });
     }
-  }, [attributes]);
+  }, [character.attributes]);
 
   const settingRef = useRef<HTMLHeadingElement | null>(null);
   useEffect(() => {
-    if (setting && settingRef.current) {
+    if (character.setting && settingRef.current) {
       settingRef.current.scrollIntoView({ behavior: 'smooth' });
     }
-  }, [setting]);
+  }, [character.setting]);
 
   const familySituationRef = useRef<HTMLHeadingElement | null>(null);
   useEffect(() => {
-    if (familySituation.siblingRank > 0 && familySituationRef.current) {
+    if (character.familySituation.siblingRank > 0 && familySituationRef.current) {
       familySituationRef.current.scrollIntoView({ behavior: 'smooth' });
     }
-  }, [familySituation.siblingRank]);
+  }, [character.familySituation.siblingRank]);
 
   const lifepathRef = useRef<HTMLHeadingElement | null>(null);
   useEffect(() => {
-    if (bornSituation.lifepath && lifepathRef.current) {
+    if (character.bornSituation.lifepath && lifepathRef.current) {
       lifepathRef.current.scrollIntoView({ behavior: 'smooth' });
     }
-  }, [bornSituation.lifepath]);
+  }, [character.bornSituation.lifepath]);
 
   const handleGenerateAttributes = () => {
-    setAttributes(generateAttributes());
+    const newAttributes = generateAttributes();
+    setCharacter({ ...character, attributes: newAttributes });
   };
 
-  const handleGenerateSetting = () => {
-    setSetting(generateSetting());
+  const handleGenerateSetting = (newSetting?: string) => {
+    const generatedSetting = stringToSetting(newSetting) || generateSetting();
+    setCharacter({ ...character, setting: generatedSetting });
   };
 
   const handleGenerateFamilySituation = () => {
-    const SOC = attributes.find((attr) => attr.name === 'SOC')?.value || 0;
-    setFamilySituation(generateFamilySituation(SOC));
+    const SOC = character.attributes.find((attr) => attr.name === 'SOC')?.value || 0;
+    const generatedFamilySituation = generateFamilySituation(SOC);
+    setCharacter({ ...character, familySituation: generatedFamilySituation });
+
+    if (generatedFamilySituation.parentalSituation.toLowerCase().includes('religious institution')) {
+      handleGenerateSetting('Religious');
+    } else if (generatedFamilySituation.parentalSituation.toLowerCase().includes('magic-user')) {
+      handleGenerateSetting('Arcane');
+    }
   };
 
   const handleGenerateBornSituation = () => {
-    const SOC = attributes.find((attr) => attr.name === 'SOC')?.value || 0;
-    setBornSituation(generateBornSituation(SOC, setting, familySituation.parentalSituation));
+    const SOC = character.attributes.find((attr) => attr.name === 'SOC')?.value || 0;
+    const generatedBornSituation = generateBornSituation(SOC, character.setting, character.familySituation.parentalSituation);
+    setCharacter({ ...character, bornSituation: generatedBornSituation });
   };
 
   return (
     <div className="App">
       <h1>Hauberk! Character Generator</h1>
       <Button onClick={handleGenerateAttributes}>Generate Attributes</Button>
-      <AttributeList attributes={attributes} />
-      {attributes.length > 0 && (
+      <AttributeList attributes={character.attributes} />
+      {character.attributes.length > 0 && (
         <>
           <h2>Setting</h2>
           <DropdownButton
             id="dropdown-settings"
-            title={setting || 'Select a Setting'}
-            onSelect={(eventKey: string | null) => setSetting(eventKey || '')}
+            title={character.setting || 'Select a Setting'}
+            onSelect={(eventKey: string | null) => setCharacter({...character, setting: stringToSetting(eventKey || '')})}
           >
             <Dropdown.Item eventKey="Rural">Rural</Dropdown.Item>
             <Dropdown.Item eventKey="Urban">Urban</Dropdown.Item>
           </DropdownButton>
-          <Button className="ml-2" onClick={handleGenerateSetting}>
+          <Button className="ml-2" onClick={() => handleGenerateSetting()}>
             Generate Setting<div ref={settingRef}></div>
           </Button>
-          {setting !== '' && setting !== null && (
+          {character.setting !== '' && character.setting !== null && (
             <>
               <h2 ref={familySituationRef}>Family Situation</h2>
               <Button onClick={handleGenerateFamilySituation}>
                 Generate Family Situation
               </Button>
-              {familySituation.siblingRank > 0 && (
-                <FamilySituationList familySituation={familySituation} />
+              {character.familySituation.siblingRank > 0 && (
+                <FamilySituationList familySituation={character.familySituation} />
               )}
             </>
           )}
-          {familySituation.parentalSituation && (
+          {character.familySituation.parentalSituation && (
             <>
               <h2 ref={lifepathRef}>Born Situation</h2>
               <Button onClick={handleGenerateBornSituation}>Generate Born Situation</Button>
-              {bornSituation.lifepath && <BornSituationList bornSituation={bornSituation} />}
+              {character.bornSituation.lifepath && <BornSituationList bornSituation={character.bornSituation} />}
             </>
           )}
         </>
