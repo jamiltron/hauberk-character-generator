@@ -4,7 +4,36 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import AttributeList from './components/AttributeList';
 import BornSituationList from './components/BornLifepathList';
 import FamilySituationList from './components/FamilySituationList';
-import careerProbabilities from '../src/assets/career_probabilities.json'
+
+type ProbabilityEntry = {
+  name: string;
+  probability: number;
+}
+
+// TODO: I should generalize this to any attribute
+type SocRange = {
+  min: number;
+  max: number;
+}
+
+type CareerProbability = {
+  name: string;
+  setting: Setting;
+  SOC_range: SocRange;
+  careers: ProbabilityEntry[];
+}
+
+const loadCareerProbabilities = async (): Promise<CareerProbability[]> => {
+  const response = await fetch('/json/career_probabilities.json',
+  {
+    headers: {
+      'Content-Type': 'application/json',
+      'Accept': 'application/json'
+    }
+  });
+  const careerProbabilities = await response.json();
+  return careerProbabilities;
+};
 
 export type Setting = '' | 'Rural' | 'Urban' | 'Religious' | 'Arcane';
 
@@ -124,57 +153,10 @@ const generateParentalSituation = (SOC: number): string => {
   return situation;
 };
 
-const generateEntertainerRole = (): string => {
-  const roll = rollDice(1, 100);
-
-  if (roll < 50) {
-    return 'Minstrel';
-  } else if (roll < 65) {
-    return 'Storyteller';
-  } else if (roll < 80) {
-    return 'Actor';
-  } else if (roll < 85) {
-    return 'Comedian';
-  } else if (roll < 88) {
-    return 'Magician';
-  } else if (roll < 91) {
-    return 'Dancer';
-  } else if (roll < 94) {
-    return 'Juggler';
-  } else if (roll < 97) {
-    return 'Acrobat';
-  } else if (roll < 99) {
-    return 'Puppeteer';
-  } else if (roll < 100) {
-    return 'Contortionist';
-  } else {
-    return 'Fire Artist';
-  }
-}
-
-const generateItinerantCraftsmenRole = (): string => {
-  const roles = [
-    'Smith',
-    'Carpenter',
-    'Tinkerer',
-    'Weaver',
-    'Leatherworker',
-    'Farrier',
-    'Baker',
-    'Tailor',
-    'Thatcher',
-    'Fletcher',
-    'Bowyer',
-    'Potter',
-    'Cooper'
-  ]
-
-  const index = Math.floor(Math.random() * roles.length);
-  return roles[index];
-}
-
-const generateCareer = (setting: string, SOC: number): string => {
-  const careerGroup = careerProbabilities.find(
+const generateCareer = async (setting: string, SOC: number): Promise<string> => {
+  let careerProbs = await loadCareerProbabilities();
+  console.log(careerProbs);
+  const careerGroup = careerProbs.find(  //careerProbabilities.find(
     (group) =>
       group.setting === setting &&
       group.SOC_range.min <= SOC &&
@@ -216,11 +198,11 @@ const stringToSetting = (str?: string): Setting => {
   }
 }
 
-const generateBornSituation = (
+const generateBornSituation = async (
   SOC: number,
   setting: string,
   parentalSituation: string
-): BornLifepath => {
+): Promise<BornLifepath> => {
   const isReligious = parentalSituation.toLowerCase().includes('religious institution');
   const isMagical = parentalSituation.toLowerCase().includes('magic-user');
   const isReligiousOrMagic = isReligious || isMagical;
@@ -229,7 +211,6 @@ const generateBornSituation = (
 
   if (isReligious) {
     lifepath = "Raised in a Monastary";
-
   } else if (isMagical) {
     lifepath = "Raised by a Magic-User";
   } else if (SOC <= 3) {
@@ -244,7 +225,7 @@ const generateBornSituation = (
     lifepath = 'Born Townsfolk';
   }
 
-  let guardianCareer = generateCareer(setting, SOC);
+  let guardianCareer = await generateCareer(setting, SOC);
 
   // Add more conditions for other lifepaths based on the rules.
   return { lifepath, guardianCareer };
@@ -312,9 +293,9 @@ const App: React.FC = () => {
     }
   };
 
-  const handleGenerateBornSituation = () => {
+  const handleGenerateBornSituation = async () => {
     const SOC = character.attributes.find((attr) => attr.name === 'SOC')?.value || 0;
-    const generatedBornSituation = generateBornSituation(SOC, character.setting, character.familySituation.parentalSituation);
+    const generatedBornSituation = await generateBornSituation(SOC, character.setting, character.familySituation.parentalSituation);
     setCharacter({ ...character, bornSituation: generatedBornSituation });
   };
 

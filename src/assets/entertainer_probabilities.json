@@ -1,0 +1,193 @@
+[  
+  {
+    "name": "Acrobat",
+    "itinerant": true,
+    "settingProbabilities": [
+      {
+        "setting": "Rural",
+        "SOC_range": { "min": 4, "max": 20 },
+        "probability": 10
+      },
+      {
+        "setting": "Urban",
+        "SOC_range": { "min": 4, "max": 20 },
+        "probability": 10
+      }
+    ]
+  },
+  {
+    "name": "Actor",
+    "itinerant": true,
+    "settingProbabilities": [
+      {
+        "setting": "Rural",
+        "SOC_range": { "min": 4, "max": 20 },
+        "probability": 10
+      },
+      {
+        "setting": "Urban",
+        "SOC_range": { "min": 4, "max": 20 },
+        "probability": 10
+      }
+    ]
+  },
+  {
+    "name": "Commedian",
+    "itinerant": true,
+    "settingProbabilities": [
+      {
+        "setting": "Rural",
+        "SOC_range": { "min": 4, "max": 20 },
+        "probability": 10
+      },
+      {
+        "setting": "Urban",
+        "SOC_range": { "min": 4, "max": 20 },
+        "probability": 10
+      }
+    ]
+  },
+  {
+    "name": "Contortionist",
+    "itinerant": true,
+    "settingProbabilities": [
+      {
+        "setting": "Rural",
+        "SOC_range": { "min": 4, "max": 20 },
+        "probability": 10
+      },
+      {
+        "setting": "Urban",
+        "SOC_range": { "min": 4, "max": 20 },
+        "probability": 10
+      }
+    ]
+  },
+  {
+    "name": "Dancer",
+    "itinerant": true,
+    "settingProbabilities": [
+      {
+        "setting": "Rural",
+        "SOC_range": { "min": 4, "max": 20 },
+        "probability": 10
+      },
+      {
+        "setting": "Urban",
+        "SOC_range": { "min": 4, "max": 20 },
+        "probability": 10
+      }
+    ]
+  },
+  {
+    "name": "Fire Artist",
+    "itinerant": true,
+    "settingProbabilities": [
+      {
+        "setting": "Rural",
+        "SOC_range": { "min": 4, "max": 20 },
+        "probability": 10
+      },
+      {
+        "setting": "Urban",
+        "SOC_range": { "min": 4, "max": 20 },
+        "probability": 10
+      }
+    ]
+  },
+  {
+    "name": "Juggler",
+    "itinerant": true,
+    "settingProbabilities": [
+      {
+        "setting": "Rural",
+        "SOC_range": { "min": 4, "max": 20 },
+        "probability": 10
+      },
+      {
+        "setting": "Urban",
+        "SOC_range": { "min": 4, "max": 20 },
+        "probability": 10
+      }
+    ]
+  },
+  {
+    "name": "Magician",
+    "itinerant": true,
+    "settingProbabilities": [
+      {
+        "setting": "Rural",
+        "SOC_range": { "min": 4, "max": 20 },
+        "probability": 10
+      },
+      {
+        "setting": "Urban",
+        "SOC_range": { "min": 4, "max": 20 },
+        "probability": 10
+      }
+    ]
+  },
+  {
+    "name": "Minstrel",
+    "itinerant": true,
+    "settingProbabilities": [
+      {
+        "setting": "Rural",
+        "SOC_range": { "min": 4, "max": 20 },
+        "probability": 10
+      },
+      {
+        "setting": "Urban",
+        "SOC_range": { "min": 4, "max": 20 },
+        "probability": 10
+      }
+    ]
+  },
+  {
+    "name": "Puppeteer",
+    "itinerant": true,
+    "settingProbabilities": [
+      {
+        "setting": "Rural",
+        "SOC_range": { "min": 4, "max": 20 },
+        "probability": 10
+      },
+      {
+        "setting": "Urban",
+        "SOC_range": { "min": 4, "max": 20 },
+        "probability": 10
+      }
+    ]
+  },
+  {
+    "name": "Storyteller",
+    "itinerant": true,
+    "settingProbabilities": [
+      {
+        "setting": "Rural",
+        "probability": 10
+      },
+      {
+        "setting": "Urban",
+        "SOC_range": { "min": 4, "max": 20 },
+        "probability": 10
+      }
+    ]
+  },
+  {
+    "name": "Sword Swallower",
+    "itinerant": true,
+    "settingProbabilities": [
+      {
+        "setting": "Rural",
+        "SOC_range": { "min": 4, "max": 20 },
+        "probability": 10
+      },
+      {
+        "setting": "Urban",
+        "SOC_range": { "min": 4, "max": 20 },
+        "probability": 10
+      }
+    ]
+  }
+]

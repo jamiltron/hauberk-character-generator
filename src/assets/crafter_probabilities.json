@@ -1,0 +1,274 @@
+[
+  {
+    "name": "Baker",
+    "itinerant": false,
+    "settingProbabilities": [
+      {
+        "setting": "Rural",
+        "SOC_range": { "min": 5, "max": 20 },
+        "probability": 10
+      },
+      {
+        "setting": "Urban",
+        "SOC_range": { "min": 5, "max": 20 },
+        "probability": 10
+      }
+    ]
+  },
+  {
+    "name": "Blacksmith",
+    "itinerant": false,
+    "settingProbabilities": [
+      {
+        "setting": "Rural",
+        "SOC_range": { "min": 5, "max": 20 },
+        "probability": 10
+      },
+      {
+        "setting": "Urban",
+        "SOC_range": { "min": 5, "max": 20 },
+        "probability": 10
+      }
+    ]
+  },
+  {
+    "name": "Blade Sharpener",
+    "itinerant": true,
+    "settingProbabilities": [
+      {
+        "setting": "Rural",
+        "SOC_range": { "min": 5, "max": 20 },
+        "probability": 10
+      },
+      {
+        "setting": "Urban",
+        "SOC_range": { "min": 5, "max": 20 },
+        "probability": 10
+      }
+    ]
+  },
+  {
+    "name": "Bowyer",
+    "itinerant": false,
+    "settingProbabilities": [
+      {
+        "setting": "Rural",
+        "SOC_range": { "min": 5, "max": 20 },
+        "probability": 10
+      },
+      {
+        "setting": "Urban",
+        "SOC_range": { "min": 5, "max": 20 },
+        "probability": 10
+      }
+    ]
+  },
+  {
+    "name": "Carpenter",
+    "itinerant": false,
+    "settingProbabilities": [
+      {
+        "setting": "Rural",
+        "SOC_range": { "min": 5, "max": 20 },
+        "probability": 10
+      },
+      {
+        "setting": "Urban",
+        "SOC_range": { "min": 5, "max": 20 },
+        "probability": 10
+      }
+    ]
+  },
+  {
+    "name": "Cobbler",
+    "itinerant": true,
+    "settingProbabilities": [
+      {
+        "setting": "Rural",
+        "SOC_range": { "min": 5, "max": 20 },
+        "probability": 10
+      },
+      {
+        "setting": "Urban",
+        "SOC_range": { "min": 5, "max": 20 },
+        "probability": 10
+      }
+    ]
+  },
+  {
+    "name": "Cooper",
+    "itinerant": false,
+    "settingProbabilities": [
+      {
+        "setting": "Rural",
+        "SOC_range": { "min": 5, "max": 20 },
+        "probability": 10
+      },
+      {
+        "setting": "Urban",
+        "SOC_range": { "min": 5, "max": 20 },
+        "probability": 10
+      }
+    ]
+  },
+  {
+    "name": "Farrier",
+    "itinerant": false,
+    "settingProbabilities": [
+      {
+        "setting": "Rural",
+        "SOC_range": { "min": 5, "max": 20 },
+        "probability": 10
+      },
+      {
+        "setting": "Urban",
+        "SOC_range": { "min": 5, "max": 20 },
+        "probability": 10
+      }
+    ]
+  },
+  {
+    "name": "Fletcher",
+    "itinerant": false,
+    "settingProbabilities": [
+      {
+        "setting": "Rural",
+        "SOC_range": { "min": 5, "max": 20 },
+        "probability": 10
+      },
+      {
+        "setting": "Urban",
+        "SOC_range": { "min": 5, "max": 20 },
+        "probability": 10
+      }
+    ]
+  },
+  {
+    "name": "Leatherworker",
+    "itinerant": true,
+    "settingProbabilities": [
+      {
+        "setting": "Rural",
+        "SOC_range": { "min": 5, "max": 20 },
+        "probability": 10
+      },
+      {
+        "setting": "Urban",
+        "SOC_range": { "min": 5, "max": 20 },
+        "probability": 10
+      }
+    ]
+  },
+  {
+    "name": "Potter",
+    "itinerant": false,
+    "settingProbabilities": [
+      {
+        "setting": "Rural",
+        "SOC_range": { "min": 5, "max": 20 },
+        "probability": 10
+      },
+      {
+        "setting": "Urban",
+        "SOC_range": { "min": 5, "max": 20 },
+        "probability": 10
+      }
+    ]
+  },
+  {
+    "name": "Rope Maker",
+    "itinerant": true,
+    "settingProbabilities": [
+      {
+        "setting": "Rural",
+        "SOC_range": { "min": 5, "max": 20 },
+        "probability": 10
+      },
+      {
+        "setting": "Urban",
+        "SOC_range": { "min": 5, "max": 20 },
+        "probability": 10
+      }
+    ]
+  },
+  {
+    "name": "Tailor",
+    "itinerant": false,
+    "settingProbabilities": [
+      {
+        "setting": "Rural",
+        "SOC_range": { "min": 5, "max": 20 },
+        "probability": 10
+      },
+      {
+        "setting": "Urban",
+        "SOC_range": { "min": 5, "max": 20 },
+        "probability": 10
+      }
+    ]
+  },
+  {
+    "name": "Thatcher",
+    "itinerant": true,
+    "settingProbabilities": [
+      {
+        "setting": "Rural",
+        "SOC_range": { "min": 5, "max": 20 },
+        "probability": 10
+      },
+      {
+        "setting": "Urban",
+        "SOC_range": { "min": 5, "max": 20 },
+        "probability": 10
+      }
+    ]
+  },
+  {
+    "name": "Tinker",
+    "itinerant": true,
+    "settingProbabilities": [
+      {
+        "setting": "Rural",
+        "SOC_range": { "min": 5, "max": 20 },
+        "probability": 10
+      },
+      {
+        "setting": "Urban",
+        "SOC_range": { "min": 5, "max": 20 },
+        "probability": 10
+      }
+    ]
+  },
+  {
+    "name": "Weaver",
+    "itinerant": true,
+    "settingProbabilities": [
+      {
+        "setting": "Rural",
+        "SOC_range": { "min": 5, "max": 20 },
+        "probability": 10
+      },
+      {
+        "setting": "Urban",
+        "SOC_range": { "min": 5, "max": 20 },
+        "probability": 10
+      }
+    ]
+  },
+  {
+    "name": "Wool Spinner",
+    "itinerant": true,
+    "settingProbabilities": [
+      {
+        "setting": "Rural",
+        "SOC_range": { "min": 5, "max": 20 },
+        "probability": 10
+      },
+      {
+        "setting": "Urban",
+        "SOC_range": { "min": 5, "max": 20 },
+        "probability": 10
+      }
+    ]
+  }
+]
