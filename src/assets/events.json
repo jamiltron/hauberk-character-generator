@@ -1,0 +1,75 @@
+[
+  {
+    "lifepath": "Born Villager",
+    "tables": [
+      {
+        "name": "Magical Mishap",
+        "probability": 10,
+        "events": [
+          { 
+            "name": "Cursed by a Magic-User",
+            "probability": 10,
+            "effects": [
+              "+Trait: Cursed",
+              "-Attr POW 1",
+              "-Attr SOC 1"
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Mundane Mishap",
+        "probability": 10,
+        "events": [
+          { 
+            "name": "Bullied",
+            "probability": 10,
+            "effects": [
+              "+Rival: Bully"
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Normal Upbrining",
+        "probability": 10,
+        "events": [
+          { 
+            "name": "Normal Year",
+            "probability": 10,
+            "effects": [
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Mundane Boon",
+        "probability": 10,
+        "events": [
+          { 
+            "name": "Found some treasure",
+            "probability": 10,
+            "effects": [
+              "+Silver: 1d6"
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Magical Boon",
+        "probability": 10,
+        "events": [
+          { 
+            "name": "Blessed by a Magic-User",
+            "probability": 10,
+            "effects": [
+              "+Trait: Blessed",
+              "+Attr POW 1",
+              "+Attr SOC 1"
+            ]
+          }
+        ]
+      }
+    ]
+  }
+]

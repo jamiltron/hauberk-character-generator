@@ -9,7 +9,8 @@ interface Props {
 const BornSituationList: React.FC<Props> = ({ bornSituation }) => {
   return (
     <ListGroup>
-      <ListGroup.Item>Lifepath: {bornSituation.lifepath}</ListGroup.Item>
+      <ListGroup.Item><b>Lifepath:</b> {bornSituation.lifepath}</ListGroup.Item>
+      <ListGroup.Item><b>Guardian Career:</b> {bornSituation.guardianCareer}</ListGroup.Item>
     </ListGroup>
   );
 };

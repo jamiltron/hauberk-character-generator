@@ -4,10 +4,41 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import AttributeList from './components/AttributeList';
 import BornSituationList from './components/BornLifepathList';
 import FamilySituationList from './components/FamilySituationList';
+import careerProbabilities from '../src/assets/career_probabilities.json'
+
+export type Setting = 'Rural' | 'Urban';
 
 export interface Attribute {
   name: string;
   value: number;
+}
+
+export interface FamilySituation {
+  siblingRank: number;
+  familySize: number;
+  parentalSituation: string;
+}
+
+export interface BornLifepath {
+  lifepath: string;
+  guardianCareer: string;
+}
+
+interface CareerGroup {
+  name: string;
+  setting: Setting;
+  soc_range: SOC_Range;
+  careers: ProbabilityEntry[];
+}
+
+interface ProbabilityEntry {
+  name: string;
+  probability: number;
+}
+
+interface SOC_Range {
+  min: number;
+  max: number;
 }
 
 const rollDice = (numDice: number, numSides: number): number => {
@@ -49,12 +80,6 @@ const generateSiblingRank = (): number => {
   if (roll <= 95) return 5;
   return 6;
 };
-
-export interface FamilySituation {
-  siblingRank: number;
-  familySize: number;
-  parentalSituation: string;
-}
 
 const generateFamilySituation = (SOC: number): FamilySituation => {  
   const siblingRank = generateSiblingRank();
@@ -109,29 +134,114 @@ const generateParentalSituation = (SOC: number): string => {
   return situation;
 };
 
-export interface BornLifepath {
-  lifepath: string;
+const generateEntertainerRole = (): string => {
+  const roll = rollDice(1, 100);
+
+  if (roll < 50) {
+    return 'Minstrel';
+  } else if (roll < 65) {
+    return 'Storyteller';
+  } else if (roll < 80) {
+    return 'Actor';
+  } else if (roll < 85) {
+    return 'Comedian';
+  } else if (roll < 88) {
+    return 'Magician';
+  } else if (roll < 91) {
+    return 'Dancer';
+  } else if (roll < 94) {
+    return 'Juggler';
+  } else if (roll < 97) {
+    return 'Acrobat';
+  } else if (roll < 99) {
+    return 'Puppeteer';
+  } else if (roll < 100) {
+    return 'Contortionist';
+  } else {
+    return 'Fire Artist';
+  }
 }
+
+const generateItinerantCraftsmenRole = (): string => {
+  const roles = [
+    'Smith',
+    'Carpenter',
+    'Tinkerer',
+    'Weaver',
+    'Leatherworker',
+    'Farrier',
+    'Baker',
+    'Tailor',
+    'Thatcher',
+    'Fletcher',
+    'Bowyer',
+    'Potter',
+    'Cooper'
+  ]
+
+  const index = Math.floor(Math.random() * roles.length);
+  return roles[index];
+}
+
+const generateCareer = (setting: string, SOC: number): string => {
+  const careerGroup = careerProbabilities.find(
+    (group) =>
+      group.setting === setting &&
+      group.SOC_range.min <= SOC &&
+      group.SOC_range.max >= SOC
+  );
+
+  // Return null if no matching career group found
+  if (!careerGroup) return '';
+
+  // Generate a random number between 0 and 1
+  const random = Math.random();
+
+  // Calculate the cumulative probability
+  let cumulativeProbability = 0;
+
+  // Iterate through the careers to find the matching career based on probability
+  for (const career of careerGroup.careers) {
+    cumulativeProbability += career.probability;
+    if (random <= cumulativeProbability) {
+      return career.name;
+    }
+  }
+
+  return '';
+};
 
 const generateBornSituation = (
   SOC: number,
   setting: string,
   parentalSituation: string
 ): BornLifepath => {
-  const isReligiousOrMagic =
-    parentalSituation.includes('religious institution') || parentalSituation.includes('magic-user');
+  const isReligious = parentalSituation.toLowerCase().includes('religious institution');
+  const isMagical = parentalSituation.toLowerCase().includes('magic-user');
+  const isReligiousOrMagic = isReligious || isMagical;
 
   let lifepath = '';
 
-  if (SOC >= 6 && SOC <= 15 && setting === 'Rural' && !isReligiousOrMagic) {
+  if (isReligious) {
+    lifepath = "Raised in a Monastary";
+
+  } else if (isMagical) {
+    lifepath = "Raised by a Magic-User";
+  } else if (SOC <= 3) {
+    lifepath = "Born Outcast";
+  } else if (SOC >= 4 && SOC <= 5) {
+    lifepath = 'Born Wanderer';
+  } else if (SOC >= 6 && SOC <= 15 && setting === 'Rural' && !isReligiousOrMagic) {
     lifepath = 'Born Villager';
+  } else if (setting === 'Urban') {
+    lifepath = 'Born Townsfolk';
   }
 
+  let guardianCareer = generateCareer(setting, SOC);
+
   // Add more conditions for other lifepaths based on the rules.
-
-  return { lifepath };
+  return { lifepath, guardianCareer };
 };
-
 
 const App: React.FC = () => {
   const [attributes, setAttributes] = useState<Attribute[]>([]);
@@ -141,7 +251,7 @@ const App: React.FC = () => {
     familySize: 0,
     parentalSituation: '',
   });
-  const [bornSituation, setBornSituation] = useState<BornLifepath>({ lifepath: '' });
+  const [bornSituation, setBornSituation] = useState<BornLifepath>({ lifepath: '', guardianCareer: '' });
 
   const attributesRef = useRef<HTMLHeadingElement | null>(null);
   useEffect(() => {

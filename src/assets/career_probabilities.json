@@ -1,0 +1,240 @@
+[
+  {
+    "name": "Rural Outcast",
+    "setting": "Rural",
+    "SOC_range": {
+      "min": 0,
+      "max": 3
+    },
+    "careers": [
+      { "name": "Sex Worker", "probability": 10},
+      { "name": "Branded Criminal", "probability": 10},
+      { "name": "Branded Heretic", "probability": 10},
+      { "name": "Beggar", "probability": 10},
+      { "name": "Plaguebearer", "probability": 10},
+      { "name": "Bandit", "probability": 10},
+      { "name": "Runaway", "probability": 10},
+      { "name": "Condemned Magic-User", "probability": 10}
+    ]
+  },
+  {
+    "name": "Rural Vagabond",
+    "setting": "Rural",
+    "SOC_range": {
+      "min": 4,
+      "max": 5
+    },
+    "careers": [
+      { "name": "Laborer", "probability": 10},
+      { "name": "Itinerant ($GENERATE)", "probability": 10},
+      { "name": "Plot Tender", "probability": 10},
+      { "name": "Runaway", "probability": 10},
+      { "name": "Itinerant ($GENERATE)", "probability": 10},
+      { "name": "Itinerant Healer", "probability": 10},
+      { "name": "Wanderer", "probability": 10},
+      { "name": "Scavenger", "probability": 10},
+      { "name": "Smuggler", "probability": 10},
+      { "name": "Charlatan", "probability": 10},
+      { "name": "Disgraced Noble", "probability": 10}
+    ]
+  },
+  {
+    "name": "Rural Lowly",
+    "setting": "Rural",
+    "SOC_range": {
+      "min": 6,
+      "max": 8
+    },
+    "careers": [
+      {"name": "Herder", "probability": 10},
+      {"name": "Farmer", "probability": 10},
+      {"name": "Stable Hand", "probability": 10},
+      {"name": "Cook", "probability": 10},
+      {"name": "Fisher", "probability": 10},
+      {"name": "Laborer", "probability": 10},
+      {"name": "Porter", "probability": 10},
+      {"name": "Carter", "probability": 10},
+      {"name": "Plot Tender", "probability": 10},
+      {"name": "Wood Cutter", "probability": 10}
+    ]
+  },
+  {
+    "name": "Rural Free",
+    "setting": "Rural",
+    "SOC_range": {
+      "min": 9,
+      "max": 12
+    },
+    "careers": [
+      { "name": "Farmer", "probability": 45 },
+      { "name": "Herder", "probability": 20 },
+      { "name": "Animal Handler", "probability": 4 },
+      { "name": "Blacksmith", "probability": 4 },
+      { "name": "Tinker", "probability": 4 },
+      { "name": "Peddler", "probability": 4 },
+      { "name": "Manorial/Castle Servant", "probability": 4 },
+      { "name": "Soldier", "probability": 4 },
+      { "name": "Cook", "probability": 4 },
+      { "name": "Forester", "probability": 4 },
+      { "name": "Fisher", "probability": 4 },
+      { "name": "Thatcher", "probability": 4 },
+      { "name": "Rural Mason", "probability": 4 },
+      { "name": "Potter", "probability": 4 },
+      { "name": "Charcoal Burner", "probability": 4 },
+      { "name": "Slater", "probability": 4 },
+      { "name": "Carpenter", "probability": 4 },
+      { "name": "Cartwright", "probability": 4 },
+      { "name": "Falconer", "probability": 4 },
+      { "name": "Village Wise", "probability": 2}
+    ]
+  },
+  {
+    "name": "Rural Well Off",
+    "setting": "Rural",
+    "SOC_range": {
+      "min": 13,
+      "max": 15
+    },
+    "careers": [
+      {"name": "Herder", "probability": 10},
+      {"name": "Farmer", "probability": 10},
+      {"name": "Stable Hand", "probability": 10},
+      {"name": "Cook", "probability": 10},
+      {"name": "Fisher", "probability": 10},
+      {"name": "Laborer", "probability": 10},
+      {"name": "Porter", "probability": 10},
+      {"name": "Carter", "probability": 10},
+      {"name": "Plot Tender", "probability": 10},
+      {"name": "Wood Cutter", "probability": 10}
+    ]
+  },
+  {
+    "name": "Rural Prosperous",
+    "setting": "Rural",
+    "SOC_range": {
+      "min": 16,
+      "max": 17
+    },
+    "careers": [
+      { "name": "Wealthy Farmer", "probability": 35 },
+      { "name": "Rural Inn Keeper", "probability": 15 },
+      { "name": "Castle Smith", "probability": 10 },
+      { "name": "Master of Hounds", "probability": 10 },
+      { "name": "Stablemaster", "probability": 10 },
+      { "name": "Head Forester", "probability": 10 },
+      { "name": "Castle Armorer", "probability": 5 },
+      { "name": "Serviens", "probability": 5 },
+      { "name": "Miller", "probability": 5 },
+      { "name": "Wheelwright", "probability": 5 },
+      { "name": "Scribe Secretary", "probability": 5 },
+      { "name": "Liveried Cavalryman", "probability": 5 },
+      { "name": "Liveried Guard", "probability": 5 }
+    ]
+  },
+  {
+    "name": "Rural Landed",
+    "setting": "Rural",
+    "SOC_range": {
+      "min": 18,
+      "max": 20
+    },
+    "careers": [
+      { "name": "Bailiff", "probability": 16 },
+      { "name": "Knight Errant", "probability": 16 },
+      { "name": "Herald", "probability": 16 },
+      { "name": "Courtier", "probability": 17 },
+      { "name": "Castellan", "probability": 16},
+      { "name": "Court Wizard", "probability": 5}
+    ]
+  },
+  {
+    "name": "Rural Noble",
+    "setting": "Rural",
+    "SOC_range": {
+      "min": 18,
+      "max": 20
+    },
+    "careers": [
+      { "name": "Landed Knight", "probability": 50 },
+      { "name": "Wealthy Cortier", "probability": 50 }
+    ]
+  },
+
+  {
+    "name": "Urban Outcast",
+    "setting": "Urban",
+    "SOC_range": {
+      "min": 0,
+      "max": 3
+    },
+    "careers": [
+      { "name": "Urban Outcast", "probability": 100}
+    ]
+  },
+  {
+    "name": "Urban Vagabond",
+    "setting": "Urban",
+    "SOC_range": {
+      "min": 4,
+      "max": 5
+    },
+    "careers": [
+      { "name": "Urban Vagabond", "probability": 10}
+    ]
+  },
+  {
+    "name": "Urban Lowly",
+    "setting": "Urban",
+    "SOC_range": {
+      "min": 6,
+      "max": 8
+    },
+    "careers": [
+      {"name": "Urban Lowly", "probability": 10}
+    ]
+  },
+  {
+    "name": "Urban Free",
+    "setting": "Urban",
+    "SOC_range": {
+      "min": 9,
+      "max": 12
+    },
+    "careers": [
+      {"name": "Urban Free", "probability": 10}
+    ]
+  },
+  {
+    "name": "Urban Well Off",
+    "setting": "Urban",
+    "SOC_range": {
+      "min": 13,
+      "max": 15
+    },
+    "careers": [
+      {"name": "Urban Well Off", "probability": 10}
+    ]
+  },
+  {
+    "name": "Urban Prosperous",
+    "setting": "Urban",
+    "SOC_range": {
+      "min": 16,
+      "max": 17
+    },
+    "careers": [
+      {"name": "Urban Prosperous", "probability": 10}
+    ]
+  },
+  {
+    "name": "Urban Landed",
+    "setting": "Urban",
+    "SOC_range": {
+      "min": 18,
+      "max": 20
+    },
+    "careers": [
+      {"name": "Urban Landed", "probability": 10}
+    ]
+  }
+] 
